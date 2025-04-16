@@ -67,5 +67,3 @@ MIT License - See LICENSE file for details
 Contributions welcome! Please feel free to submit a Pull Request.
 
 ---
-
-_Made with ❤️ by the Eye-Track-Self Team_
