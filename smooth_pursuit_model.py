@@ -5,6 +5,11 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.impute import SimpleImputer
 from typing import Dict, Any, Tuple
 from base_model import BaseEyeTrackingModel
+import logging
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 class SmoothPursuitModel(BaseEyeTrackingModel):
     """Model for detecting Lack of Smooth Pursuit (LoSP) based on eye tracking data."""
@@ -30,11 +35,21 @@ class SmoothPursuitModel(BaseEyeTrackingModel):
     }
 
     def __init__(self):
-        super().__init__()
+        """Initialize the model."""
+        super().__init__("SmoothPursuitModel")
         self.imputer = SimpleImputer(strategy='mean')
+        logger.info("Initialized SmoothPursuitModel")
 
     def detect_fixations_and_saccades(self, df: pd.DataFrame) -> Tuple[pd.DataFrame, Dict[str, float]]:
-        """Detect fixations and saccades in the eye tracking data."""
+        """
+        Detect fixations and saccades in the eye tracking data.
+        
+        Args:
+            df: Preprocessed DataFrame with eye tracking data
+            
+        Returns:
+            Tuple of (DataFrame with fixations and saccades marked, metrics dictionary)
+        """
         try:
             metrics = {}
             
@@ -81,17 +96,26 @@ class SmoothPursuitModel(BaseEyeTrackingModel):
                 df[f'{eye}_is_fixation'] = is_fixation
             
             # Print debug information
-            print("\nSaccade and Fixation Detection Results:")
-            print(f"Number of frames: {len(df)}")
-            print("Metrics:", metrics)
+            logger.debug("Saccade and Fixation Detection Results:")
+            logger.debug(f"Number of frames: {len(df)}")
+            logger.debug(f"Metrics: {metrics}")
             
             return df, metrics
             
         except Exception as e:
+            logger.error(f"Error in detect_fixations_and_saccades: {e}")
             raise ValueError(f"Error in detect_fixations_and_saccades: {e}")
 
     def extract_features(self, df: pd.DataFrame) -> Dict[str, float]:
-        """Extract features from the preprocessed data."""
+        """
+        Extract features from the preprocessed data.
+        
+        Args:
+            df: Preprocessed DataFrame with eye tracking data
+            
+        Returns:
+            Dictionary of extracted features
+        """
         try:
             features = {}
             
@@ -114,10 +138,17 @@ class SmoothPursuitModel(BaseEyeTrackingModel):
             return features
             
         except Exception as e:
+            logger.error(f"Error in extract_features: {e}")
             raise ValueError(f"Error in extract_features: {e}")
 
     def train(self, X: np.ndarray, y: np.ndarray) -> None:
-        """Train the model using prepared data."""
+        """
+        Train the model using prepared data.
+        
+        Args:
+            X: Feature matrix
+            y: Target labels
+        """
         try:
             # Handle NaN values
             X_imputed = self.imputer.fit_transform(X)
@@ -131,12 +162,22 @@ class SmoothPursuitModel(BaseEyeTrackingModel):
             
             self.model.fit(X_imputed, y)
             self.is_trained = True
+            logger.info("Model training completed successfully")
             
         except Exception as e:
+            logger.error(f"Error in train: {e}")
             raise ValueError(f"Error in train: {e}")
 
     def predict(self, df: pd.DataFrame) -> Dict[str, Any]:
-        """Make predictions using trained model."""
+        """
+        Make predictions using trained model.
+        
+        Args:
+            df: Input DataFrame with eye tracking data
+            
+        Returns:
+            Dictionary with prediction results
+        """
         try:
             if not self.is_trained:
                 raise ValueError("Model must be trained before making predictions")
@@ -165,4 +206,5 @@ class SmoothPursuitModel(BaseEyeTrackingModel):
             }
             
         except Exception as e:
+            logger.error(f"Error in predict: {e}")
             raise ValueError(f"Error in predict: {e}") 

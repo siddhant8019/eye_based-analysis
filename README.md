@@ -1,141 +1,70 @@
-# 👁️ Eye-Track-Self: Advanced Impairment Detection System
+# 👁️ Eye-Track-Self
 
-## 🎯 Vision Statement
+A machine learning system that analyzes eye movement patterns to detect potential impairment through multiple specialized models.
 
-Eye-Track-Self is a cutting-edge machine learning system that analyzes eye movement patterns to detect potential impairment. Using advanced gaze tracking and sophisticated algorithms, it processes eye movement data to identify patterns associated with various forms of impairment.
+## 🎯 Overview
 
-```
-👁️ → 📊 → 🤖 → 🎯
-Data → Analysis → ML → Results
-```
+Eye-Track-Self processes eye tracking data to identify patterns associated with various forms of impairment using three specialized models:
 
-## ✨ Key Features
+- Smooth Pursuit Detection
+- Nystagmus Analysis
+- Cannabis Influence Detection
 
-### 🔍 Multi-Model Analysis
+## 🚀 Features
 
-- **Smooth Pursuit Detection**
-  - Tracks fluid eye movements
-  - Analyzes saccade patterns
-  - Measures fixation stability
-  - Real-time velocity calculations
+- **Multi-Model Analysis**: Combines three specialized models for comprehensive impairment detection
+- **Real-time Processing**: Analyzes data in 5-second windows (150 frames)
+- **Advanced Metrics**: Tracks gaze angles, velocity, saccades, and fixation stability
+- **Scalable Architecture**: Modular design with base model class for easy extension
 
-### 📊 Data Processing
+## 🛠️ Tech Stack
 
-- Processes data in 5-second windows (150 frames)
-- Calculates:
-  - Gaze angles (X/Y coordinates)
-  - Eye velocity
-  - Saccade detection
-  - Fixation stability
+- Python 3.x
+- NumPy & Pandas for data processing
+- Scikit-learn & XGBoost for ML models
+- Matplotlib for visualization
 
-### 📈 Output Metrics
+## 🚦 Getting Started
 
-- Probability scores
-- Binary impairment classification
-- Detailed feature analysis
-- Window-by-window breakdown
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-```bash
-python 3.x
-pandas
-numpy
-scikit-learn
-```
-
-### Installation
-
-1. Clone the repository:
+1. Clone and setup:
 
 ```bash
 git clone https://github.com/yourusername/eye-track-self.git
 cd eye-track-self
-```
-
-2. Install dependencies:
-
-```bash
 pip install -r requirements.txt
 ```
 
-### Usage
-
-Run the main analysis:
+2. Run analysis:
 
 ```bash
 python main.py
 ```
 
-## 📊 Output Format
+## 📊 Output
 
-The system generates a CSV file containing:
+The system generates detailed analysis including:
 
-- Probability scores (0-1)
-- Under influence classification (threshold: 0.6)
-- Feature metrics:
-  - Eye velocity
-  - Saccade counts
-  - Fixation stability
-  - Peak velocities
+- Probability scores for each model
+- Binary impairment classification
+- Feature metrics (velocity, saccades, stability)
+- Window-by-window analysis
 
-## 🔬 Technical Details
+## 🏗️ Architecture
 
-### Feature Extraction
-
-- **Gaze Analysis**
-
-  - X/Y coordinate tracking
-  - Velocity calculations
-  - Acceleration patterns
-
-- **Saccade Detection**
-
-  - Peak velocity analysis
-  - Direction changes
-  - Frequency patterns
-
-- **Fixation Stability**
-  - Stability measurements
-  - Drift analysis
-  - Micro-movement detection
-
-### Model Performance
-
-- Window Size: 150 frames (5 seconds)
-- Processing Rate: ~30 fps
-- Classification Threshold: 0.6
-
-## 📈 Sample Results
-
-```
-Feature Statistics:
-- Eye Velocity: 44.28 ± 1.96 deg/sec
-- Velocity Stability: 23.87 ± 1.29
-- Saccade Count (Left): 0.24 ± 0.07
-- Saccade Count (Right): 0.71 ± 0.06
-```
-
-## 🛠️ Future Enhancements
-
-- Real-time processing capabilities
-- Additional impairment detection models
-- Enhanced visualization tools
-- Mobile device integration
+- `base_model.py`: Core model functionality
+- `smooth_pursuit_model.py`: Smooth pursuit detection
+- `nystagmus_model.py`: Nystagmus analysis
+- `cannabis_model.py`: Cannabis influence detection
+- `preprocessor.py`: Data preprocessing pipeline
+- `main.py`: Orchestration and execution
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT License - See LICENSE file for details
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📧 Contact
-
-For questions and support, please open an issue in the repository.
+Contributions welcome! Please feel free to submit a Pull Request.
 
 ---
 
